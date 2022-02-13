@@ -21,6 +21,7 @@ import type {
   TextMetadataCue,
   VideoData,
   IVSPlayerRef,
+  ResizeMode
 } from './types';
 
 type IVSPlayerProps = {
@@ -32,6 +33,7 @@ type IVSPlayerProps = {
   playbackRate?: number;
   streamUrl?: string;
   logLevel?: LogLevel;
+  resizeMode?: ResizeMode;
   progressInterval?: number;
   volume?: number;
   quality?: Quality | null;
@@ -82,6 +84,7 @@ type Props = {
   playbackRate?: number;
   logLevel?: LogLevel;
   progressInterval?: number;
+  resizeMode?: ResizeMode;
   volume?: number;
   quality?: Quality | null;
   autoMaxQuality?: Quality | null;
@@ -121,6 +124,7 @@ const IVSPlayerContainer = React.forwardRef<IVSPlayerRef, Props>(
       streamUrl,
       paused,
       muted,
+      resizeMode,
       autoplay = true,
       liveLowLatency,
       playbackRate,
@@ -315,6 +319,7 @@ const IVSPlayerContainer = React.forwardRef<IVSPlayerRef, Props>(
           playbackRate={playbackRate}
           streamUrl={streamUrl}
           logLevel={logLevel}
+          resizeMode={resizeMode}
           progressInterval={progressInterval}
           volume={volume}
           quality={quality}

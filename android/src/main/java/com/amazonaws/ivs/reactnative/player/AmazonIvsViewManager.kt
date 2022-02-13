@@ -7,6 +7,8 @@ import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
 
+import android.util.Log
+
 class AmazonIvsViewManager : SimpleViewManager<AmazonIvsView>() {
   private enum class Commands {
     PLAY,
@@ -52,6 +54,12 @@ class AmazonIvsViewManager : SimpleViewManager<AmazonIvsView>() {
   @ReactProp(name = "streamUrl")
   fun setStreamUrl(view: AmazonIvsView, streamUrl: String) {
     view.setStreamUrl(streamUrl);
+  }
+
+  @ReactProp(name = "resizeMode")
+  fun setResizeMode(view: AmazonIvsView, mode: String) {
+    Log.i("palyer","checking  mode ***"+mode)
+    view.setResizeMode(mode);
   }
 
   @ReactProp(name = "muted")

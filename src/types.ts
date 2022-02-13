@@ -40,3 +40,4 @@ export type IVSPlayerRef = {
   pause: () => void;
   seekTo: (position: number) => void;
 };
+export type ResizeMode = 'aspectFill' | 'aspectFit' | 'aspectZoom';

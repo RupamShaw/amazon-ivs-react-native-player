@@ -1,6 +1,7 @@
 package com.amazonaws.ivs.reactnative.player
 
 import android.net.Uri
+import android.os.Build
 import android.widget.FrameLayout
 import com.amazonaws.ivs.player.*
 import com.facebook.react.bridge.Arguments
@@ -12,6 +13,7 @@ import com.facebook.react.uimanager.events.RCTEventEmitter
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.concurrent.timerTask
+import android.util.Log
 
 class AmazonIvsView(private val context: ThemedReactContext) : FrameLayout(context), LifecycleEventListener {
   private var playerView: PlayerView? = null
@@ -100,6 +102,14 @@ class AmazonIvsView(private val context: ThemedReactContext) : FrameLayout(conte
     }, 0, 1000)
   }
 
+  override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+    super.onLayout(changed, left, top, right, bottom)
+
+    if (changed) {
+      post(mLayoutRunnable)
+    }
+  }
+
   fun setStreamUrl(streamUrl: String) {
     player?.let { player ->
       val reactContext = context as ReactContext
@@ -111,6 +121,19 @@ class AmazonIvsView(private val context: ThemedReactContext) : FrameLayout(conte
 
       reactContext.getJSModule(RCTEventEmitter::class.java).receiveEvent(id, Events.LOAD_START.toString(), Arguments.createMap())
     }
+  }
+
+  fun setResizeMode(resizeMode: String?) {
+//    playerView?.resizeMode= ResizeMode.FIT
+    playerView?.resizeMode= findResizeMode(resizeMode)
+//   playerView?.resizeMode = ResizeMode.FIT
+  }
+
+  private fun findResizeMode(mode: String?): ResizeMode = when (mode) {
+    "aspectFill" -> ResizeMode.FILL
+    "aspectFit" -> ResizeMode.FIT
+    "aspectZoom" -> ResizeMode.ZOOM
+    else -> ResizeMode.FIT
   }
 
   fun setMuted(muted: Boolean) {

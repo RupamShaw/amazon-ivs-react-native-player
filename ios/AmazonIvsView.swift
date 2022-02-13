@@ -50,6 +50,7 @@ class AmazonIvsView: UIView, IVSPlayer.Delegate {
 
         self.addSubview(self.playerView)
         self.playerView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.playerView.videoGravity = AVLayerVideoGravity.resizeAspectFill
         self.addProgressObserver()
         self.addPlayerObserver()
         self.addTimePointObserver()
